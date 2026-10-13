@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<meta name="theme-color" content="#d6336c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Salon Cont">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<title>Salon Cont</title>
+<style>
+:root{
+  --bg:#fff5f8; --card:#ffffff; --ink:#2b2230; --muted:#8b7f93; --pink:#d6336c; --pink2:#f783ac;
+  --green:#2f9e63; --red:#e03131; --line:#f1dde6;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#1d1720; --card:#2a2230; --ink:#f4eef7; --muted:#a79bb0; --line:#3b3144; --green:#51cf8d; --red:#ff6b6b;}
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif}
+body{padding-top:env(safe-area-inset-top);padding-bottom:calc(76px + env(safe-area-inset-bottom));min-height:100vh}
+header{display:flex;align-items:center;gap:8px;padding:14px 16px 6px}
+header h1{font-size:20px;margin:0;flex:1}
+header input[type=month]{font-size:16px;padding:8px 10px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.icon-btn{border:none;background:var(--card);border-radius:12px;width:40px;height:40px;font-size:20px;border:1px solid var(--line);color:var(--ink)}
+main{padding:8px 16px 16px;max-width:560px;margin:0 auto}
+.card{background:var(--card);border-radius:18px;padding:16px;margin-bottom:14px;border:1px solid var(--line)}
+.card h2{font-size:15px;margin:0 0 10px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
+label{display:block;font-size:13px;color:var(--muted);margin:10px 0 4px}
+input,select{width:100%;font-size:18px;padding:12px;border-radius:12px;border:1px solid var(--line);background:var(--bg);color:var(--ink)}
+.row{display:flex;gap:10px}.row>*{flex:1}
+.btn{width:100%;margin-top:14px;padding:14px;font-size:17px;font-weight:700;border:none;border-radius:14px;background:linear-gradient(135deg,var(--pink),var(--pink2));color:#fff}
+.btn.ghost{background:var(--bg);color:var(--ink);border:1px solid var(--line);font-weight:600}
+.btn.small{width:auto;margin:0;padding:10px 14px;font-size:15px}
+.item{display:flex;align-items:center;gap:10px;padding:11px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:none}
+.item .d{width:46px;text-align:center;font-size:12px;color:var(--muted);line-height:1.2}
+.item .d b{display:block;font-size:18px;color:var(--ink)}
+.item .t{flex:1;font-size:15px}
+.item .t small{display:block;color:var(--muted);font-size:12px}
+.item .a{font-weight:700;font-size:16px}
+.in{color:var(--green)}.out{color:var(--red)}
+.x{border:none;background:none;color:var(--muted);font-size:20px;padding:6px}
+.empty{color:var(--muted);text-align:center;padding:14px 0;font-size:14px}
+.big{font-size:34px;font-weight:800;margin:2px 0 4px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.stat{background:var(--bg);border-radius:14px;padding:12px}
+.stat span{font-size:12px;color:var(--muted)}.stat b{display:block;font-size:20px;margin-top:2px}
+.bars{display:flex;align-items:flex-end;gap:8px;height:130px;margin-top:8px}
+.bars .col{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
+.bars .pair{display:flex;align-items:flex-end;gap:3px;height:100px}
+.bars .pair i{display:block;width:12px;border-radius:5px 5px 0 0;min-height:2px}
+.bars small{font-size:11px;color:var(--muted)}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:5px}
+.banner{background:#fff3bf;color:#5c4a00;border-radius:14px;padding:12px;margin-bottom:14px;font-size:14px}
+.banner button{margin-top:8px;border:none;background:#5c4a00;color:#fff;padding:9px 14px;border-radius:10px;font-size:14px;font-weight:600}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
+nav button{flex:1;border:none;background:none;padding:10px 0 8px;font-size:12px;color:var(--muted)}
+nav button span{display:block;font-size:22px}
+nav button.on{color:var(--pink);font-weight:700}
+.lock{position:fixed;inset:0;background:var(--bg);z-index:50;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:20px}
+.lock h2{margin:0}.lock input{max-width:220px;text-align:center;letter-spacing:.5em;font-size:26px}
+.hide{display:none!important}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:40;display:flex;align-items:flex-end}
+.modal>div{background:var(--bg);width:100%;max-height:88vh;overflow:auto;border-radius:22px 22px 0 0;padding:18px 16px calc(24px + env(safe-area-inset-bottom))}
+</style>
+</head>
+<body>
+
+<div id="lock" class="lock hide">
+  <div style="font-size:48px">💅</div>
+  <h2>Introdu PIN-ul</h2>
+  <input id="pinIn" type="password" inputmode="numeric" maxlength="8" autocomplete="off">
+  <div id="pinErr" class="out hide">PIN greșit</div>
+</div>
+
+<header>
+  <h1>💅 Salon Cont</h1>
+  <input type="month" id="month">
+  <button class="icon-btn" id="gear" aria-label="Setări">⚙️</button>
+</header>
+
+<main id="view"></main>
+
+<nav>
+  <button data-tab="in"><span>💰</span>Încasări</button>
+  <button data-tab="out"><span>🧾</span>Cheltuieli</button>
+  <button data-tab="sum"><span>📊</span>Sumar</button>
+</nav>
+
+<div id="modal" class="modal hide"><div id="modalBody"></div></div>
+
+<script>
+const KEY='salonCont.v1';
+const CATS=['Chirie','Materiale','Utilități','Taxe','Altele'];
+let S=load();
+let tab='in';
+let month=new Date().toISOString().slice(0,7);
+
+function load(){
+  try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.entries)return s;}catch(e){}
+  return {pin:'',entries:[],lastRate:5.1,rentEur:200};
+}
+function save(){localStorage.setItem(KEY,JSON.stringify(S));}
+const $=s=>document.querySelector(s);
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
+const today=()=>{const d=new Date();d.setMinutes(d.getMinutes()-d.getTimezoneOffset());return d.toISOString().slice(0,10);};
+const fmt=n=>(Math.round(n*100)/100).toLocaleString('ro-RO',{minimumFractionDigits:2,maximumFractionDigits:2});
+const monthName=m=>{const [y,mm]=m.split('-');return new Date(y,mm-1,1).toLocaleDateString('ro-RO',{month:'short'});};
+const inMonth=(e,m)=>e.date.slice(0,7)===m;
+const sum=(arr)=>arr.reduce((a,e)=>a+e.amount,0);
+function defaultDate(){return today().slice(0,7)===month?today():month+'-01';}
+
+/* ---------- lock ---------- */
+function checkLock(){
+  if(S.pin){$('#lock').classList.remove('hide');$('#pinIn').value='';setTimeout(()=>$('#pinIn').focus(),100);}
+  else $('#lock').classList.add('hide');
+}
+$('#pinIn').addEventListener('input',e=>{
+  if(e.target.value===S.pin){$('#lock').classList.add('hide');$('#pinErr').classList.add('hide');}
+  else if(e.target.value.length>=S.pin.length){$('#pinErr').classList.remove('hide');e.target.value='';}
+});
+document.addEventListener('visibilitychange',()=>{if(document.visibilityState==='visible')checkLock();});
+
+/* ---------- views ---------- */
+function render(){
+  document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.tab===tab));
+  $('#month').value=month;
+  if(tab==='in')viewIn();else if(tab==='out')viewOut();else viewSum();
+}
+
+function listHtml(items,cls){
+  if(!items.length)return '<div class="empty">Nimic încă luna asta ✨</div>';
+  return items.sort((a,b)=>b.date.localeCompare(a.date)).map(e=>{
+    const d=new Date(e.date+'T00:00:00');
+    const sub=e.cat?(e.eur?`${e.cat} · ${fmt(e.eur)} € × ${e.rate}`:e.cat):'';
+    return `<div class="item"><div class="d"><b>${d.getDate()}</b>${monthName(e.date.slice(0,7))}</div>
+      <div class="t">${sub?`<small>${sub}</small>`:''}</div>
+      <div class="a ${cls}">${cls==='in'?'+':'−'}${fmt(e.amount)} lei</div>
+      <button class="x" data-del="${e.id}" aria-label="Șterge">✕</button></div>`;
+  }).join('');
+}
+
+function viewIn(){
+  const items=S.entries.filter(e=>e.type==='in'&&inMonth(e,month));
+  $('#view').innerHTML=`
+  <div class="card"><h2>Încasare nouă</h2>
+    <label>Data</label><input type="date" id="fDate" value="${defaultDate()}">
+    <label>Sumă (lei)</label><input type="number" id="fAmt" inputmode="decimal" placeholder="ex: 150">
+    <button class="btn" id="add">Adaugă încasarea</button></div>
+  <div class="card"><h2>Încasări luna asta · ${fmt(sum(items))} lei</h2>${listHtml(items,'in')}</div>`;
+  $('#add').onclick=()=>{
+    const amt=parseFloat($('#fAmt').value),date=$('#fDate').value;
+    if(!(amt>0)||!date)return toast('Pune data și suma 🙂');
+    S.entries.push({id:uid(),type:'in',date,amount:amt});save();
+    month=date.slice(0,7);render();
+  };
+}
+
+function rentDone(m){return S.entries.some(e=>e.type==='out'&&e.cat==='Chirie'&&inMonth(e,m));}
+
+function viewOut(){
+  const items=S.entries.filter(e=>e.type==='out'&&inMonth(e,month));
+  const banner=(!rentDone(month)&&S.rentEur>0)?`<div class="banner">🏠 Chiria pe luna asta nu e trecută încă.
+    <br><button id="quickRent">Adaugă chiria (${fmt(S.rentEur)} €)</button></div>`:'';
+  $('#view').innerHTML=`${banner}
+  <div class="card"><h2>Cheltuială nouă</h2>
+    <label>Data</label><input type="date" id="fDate" value="${defaultDate()}">
+    <label>Categorie</label><select id="fCat">${CATS.map(c=>`<option>${c}</option>`).join('')}</select>
+    <div id="rentBox" class="hide">
+      <div class="row"><div><label>Chirie în €</label><input type="number" id="fEur" inputmode="decimal" value="${S.rentEur}"></div>
+      <div><label>Curs lei / €</label><input type="number" id="fRate" inputmode="decimal" step="0.0001" value="${S.lastRate}"></div></div>
+      <div class="hint" id="rentCalc"></div></div>
+    <div id="amtBox"><label>Sumă (lei)</label><input type="number" id="fAmt" inputmode="decimal" placeholder="ex: 230"></div>
+    <button class="btn" id="add">Adaugă cheltuiala</button></div>
+  <div class="card"><h2>Cheltuieli luna asta · ${fmt(sum(items))} lei</h2>${listHtml(items,'out')}</div>`;
+
+  const cat=$('#fCat');
+  const upd=()=>{
+    const rent=cat.value==='Chirie';
+    $('#rentBox').classList.toggle('hide',!rent);$('#amtBox').classList.toggle('hide',rent);
+    if(rent){const v=(parseFloat($('#fEur').value)||0)*(parseFloat($('#fRate').value)||0);$('#rentCalc').textContent=`= ${fmt(v)} lei`;}
+  };
+  cat.onchange=upd;['#fEur','#fRate'].forEach(s=>$(s).oninput=upd);upd();
+
+  $('#add').onclick=()=>{
+    const date=$('#fDate').value;if(!date)return toast('Alege data 🙂');
+    if(cat.value==='Chirie'){
+      const eur=parseFloat($('#fEur').value),rate=parseFloat($('#fRate').value);
+      if(!(eur>0)||!(rate>0))return toast('Pune euro și cursul');
+      S.rentEur=eur;S.lastRate=rate;
+      S.entries.push({id:uid(),type:'out',date,cat:'Chirie',eur,rate,amount:Math.round(eur*rate*100)/100});
+    }else{
+      const amt=parseFloat($('#fAmt').value);if(!(amt>0))return toast('Pune suma 🙂');
+      S.entries.push({id:uid(),type:'out',date,cat:cat.value,amount:amt});
+    }
+    save();month=date.slice(0,7);render();
+  };
+  const q=$('#quickRent');
+  if(q)q.onclick=()=>{cat.value='Chirie';upd();$('#fRate').focus();$('#fRate').select();window.scrollTo({top:0,behavior:'smooth'});};
+}
+
+function viewSum(){
+  const ins=S.entries.filter(e=>e.type==='in'&&inMonth(e,month));
+  const outs=S.entries.filter(e=>e.type==='out'&&inMonth(e,month));
+  const profit=sum(ins)-sum(outs);
+  const byCat=CATS.map(c=>[c,sum(outs.filter(e=>e.cat===c))]).filter(x=>x[1]>0);
+  // last 6 months
+  const ms=[];let [y,m]=month.split('-').map(Number);
+  for(let i=5;i>=0;i--){const d=new Date(y,m-1-i,1);ms.push(d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'));}
+  const data=ms.map(k=>({k,i:sum(S.entries.filter(e=>e.type==='in'&&inMonth(e,k))),o:sum(S.entries.filter(e=>e.type==='out'&&inMonth(e,k)))}));
+  const max=Math.max(1,...data.flatMap(d=>[d.i,d.o]));
+  $('#view').innerHTML=`
+  <div class="card"><h2>Profit luna asta</h2>
+    <div class="big ${profit>=0?'in':'out'}">${profit>=0?'+':'−'}${fmt(Math.abs(profit))} lei</div>
+    <div class="grid"><div class="stat"><span>Încasări</span><b class="in">${fmt(sum(ins))}</b></div>
+    <div class="stat"><span>Cheltuieli</span><b class="out">${fmt(sum(outs))}</b></div></div></div>
+  <div class="card"><h2>Pe categorii</h2>${byCat.length?byCat.map(([c,v])=>`<div class="item"><div class="t">${c}</div><div class="a out">${fmt(v)} lei</div></div>`).join(''):'<div class="empty">Nicio cheltuială luna asta</div>'}</div>
+  <div class="card"><h2>Ultimele 6 luni</h2>
+    <div class="bars">${data.map(d=>`<div class="col"><div class="pair">
+      <i style="height:${d.i/max*100}px;background:var(--green)"></i><i style="height:${d.o/max*100}px;background:var(--red)"></i></div><small>${monthName(d.k)}</small></div>`).join('')}</div>
+    <div class="legend"><span><i style="background:var(--green)"></i>Încasări</span><span><i style="background:var(--red)"></i>Cheltuieli</span></div></div>`;
+}
+
+/* ---------- settings ---------- */
+function openSettings(){
+  $('#modalBody').innerHTML=`
+  <h2 style="margin-top:0">Setări ⚙️</h2>
+  <div class="card"><h2>Chirie lunară</h2><label>Suma în €</label><input type="number" id="sRent" inputmode="decimal" value="${S.rentEur}">
+    <button class="btn small" id="sRentSave" style="margin-top:10px">Salvează</button></div>
+  <div class="card"><h2>PIN</h2><label>PIN nou (4-8 cifre; gol = fără PIN)</label>
+    <input type="password" id="sPin" inputmode="numeric" maxlength="8" value="">
+    <button class="btn small" id="sPinSave" style="margin-top:10px">Salvează PIN</button>
+    <div class="hint">${S.pin?'PIN activ.':'PIN dezactivat.'} Dacă îl uiți, nu există recuperare (doar backup + reinstalare).</div></div>
+  <div class="card"><h2>Backup</h2>
+    <div class="hint" style="margin:0 0 10px">Datele sunt doar pe acest telefon. Fă export lunar și trimite-ți fișierul pe WhatsApp.</div>
+    <button class="btn ghost" id="sExp" style="margin-top:0">⬇️ Exportă datele</button>
+    <button class="btn ghost" id="sImp">⬆️ Importă din fișier</button>
+    <input type="file" id="sFile" accept=".json,application/json" class="hide"></div>
+  <button class="btn ghost" id="sClose">Închide</button>`;
+  $('#modal').classList.remove('hide');
+  $('#sClose').onclick=()=>$('#modal').classList.add('hide');
+  $('#sRentSave').onclick=()=>{const v=parseFloat($('#sRent').value);if(v>=0){S.rentEur=v;save();toast('Salvat ✅');render();}};
+  $('#sPinSave').onclick=()=>{
+    const p=$('#sPin').value.trim();
+    if(p&&!/^\d{4,8}$/.test(p))return toast('PIN: 4-8 cifre');
+    S.pin=p;save();toast(p?'PIN setat 🔒':'PIN scos');openSettings();
+  };
+  $('#sExp').onclick=()=>{
+    const blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'});
+    const a=document.createElement('a');a.href=URL.createObjectURL(blob);
+    a.download='salon-cont-backup-'+today()+'.json';a.click();
+  };
+  $('#sImp').onclick=()=>$('#sFile').click();
+  $('#sFile').onchange=e=>{
+    const f=e.target.files[0];if(!f)return;
+    const r=new FileReader();r.onload=()=>{
+      try{const d=JSON.parse(r.result);if(!Array.isArray(d.entries))throw 0;
+        if(confirm('Înlocuiești datele de acum cu cele din fișier?')){S=Object.assign({pin:'',lastRate:5.1,rentEur:200},d);save();$('#modal').classList.add('hide');render();toast('Importat ✅');}
+      }catch(_){toast('Fișier invalid');}
+    };r.readAsText(f);
+  };
+}
+
+/* ---------- misc ---------- */
+let tt;function toast(msg){
+  let t=$('#toast');if(!t){t=document.createElement('div');t.id='toast';
+    t.style.cssText='position:fixed;left:50%;bottom:100px;transform:translateX(-50%);background:#2b2230;color:#fff;padding:10px 16px;border-radius:12px;z-index:99;font-size:14px';document.body.appendChild(t);}
+  t.textContent=msg;t.style.display='block';clearTimeout(tt);tt=setTimeout(()=>t.style.display='none',2200);
+}
+document.addEventListener('click',e=>{
+  const id=e.target.dataset&&e.target.dataset.del;
+  if(id&&confirm('Ștergi intrarea asta?')){S.entries=S.entries.filter(x=>x.id!==id);save();render();}
+});
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{tab=b.dataset.tab;render();});
+$('#month').onchange=e=>{if(e.target.value){month=e.target.value;render();}};
+$('#gear').onclick=openSettings;
+$('#modal').addEventListener('click',e=>{if(e.target.id==='modal')$('#modal').classList.add('hide');});
+
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+checkLock();render();
+</script>
+</body>
+</html>
